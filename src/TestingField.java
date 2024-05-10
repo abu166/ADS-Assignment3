@@ -9,7 +9,7 @@ public class TestingField {
 
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 17;
         for (int i = 0; i < id.length(); i++) {
             hash = 31 * hash + id.charAt(i);
         }
