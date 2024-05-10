@@ -43,14 +43,38 @@ public class BST<K extends Comparable<K>, V> {
         }
         return null;
     }
-//    public void delete(K key){
-//
-//    }
+    public void delete(K key) {
+        root = delete(root, key);
+    }
+
+    private Node delete(Node node, K key) {
+        if (node == null) {
+            return null;
+        }
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0) {
+            node.left = delete(node.left, key);  // Search for the key in the left subtree
+        } else if (cmp > 0) {
+            node.right = delete(node.right, key);  // Search for the key in the right subtree
+        } else {
+            if (node.left == null) {
+                return node.right;  // No left child, replace node with right child
+            }
+            if (node.right == null) {
+                return node.left;  // No right child, replace node with left child
+            }
+            Node t = node;
+            node = min(t.right);
+            node.right = deleteMin(t.right);  // Delete the minimum node in the right subtree
+            node.left = t.left;
+        }
+        return node;
+    }
 
 
-    private Node min( Node x ){
-        while( x.left != null ) x = x.left;
-        return x;
+    private Node min(Node node) {
+        if (node.left == null) return node;
+        else return min(node.left);
     }
     private Node deleteMin( Node x ){
         if( x.left == null) return x.right;
