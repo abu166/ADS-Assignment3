@@ -85,15 +85,15 @@ public class MyHashTable<K, V> {
     }
 
     private int hash(K key) {
-        return Math.abs(key.hashCode()) % M;
+        return (key.hashCode() & 0x7fffffff) % M;
     }
 
     private int hash(int[] arr) {
-        return Math.abs(computeHashCode(arr)) % M;
+        return (computeHashCode(arr) & 0x7fffffff) % M;
     }
 
     private int hash(String s) {
-        return Math.abs(computeHashCode(s)) % M;
+        return (computeHashCode(s) && 0x7fffffff) % M;
     }
 
     // ---------------------------------------------------------
